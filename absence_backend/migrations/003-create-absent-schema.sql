@@ -1,0 +1,12 @@
+-- migration.sql: Create `absent` table
+
+CREATE TABLE IF NOT EXISTS `absent` (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `reason` VARCHAR(255) NOT NULL,
+    `date_start` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `date_end` DATE NOT NULL,
+    `employee_id` INT NOT NULL,
+    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (`employee_id`) REFERENCES `employee`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
+);
