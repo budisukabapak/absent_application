@@ -1,9 +1,7 @@
-export type Employee = {
+export type Absent = {
     id: number;
-    first_name: string;
-    last_name: string;
-    email: string;
-    phone_number: string;
-    address: string;
-    gender: "male" | "female";
+    employee_id: number;
+    reason: string;
+    date_start: Date;
+    date_end: Date;
 }

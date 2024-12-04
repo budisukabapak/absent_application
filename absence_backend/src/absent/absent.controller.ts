@@ -16,13 +16,6 @@ export class AbsentController {
     return this.absentService.findAll(employee_id);
   }
 
-  @Get(':id')
-  @HttpCode(HttpStatus.OK)
-  @UseGuards(AuthGuard)
-  getAdminById(@Param('id') id: number) {
-    return this.absentService.findById(id);
-  }
-
   @Post('create') 
   @HttpCode(HttpStatus.OK)
   @UseGuards(AuthGuard)

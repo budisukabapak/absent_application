@@ -9,11 +9,15 @@ interface Absent {
 }
 
 interface AbsentState {
+    employe_id: number | undefined;
     absent: Absent | undefined;
+    setEmployeeId: (employe_id: number) => void;
     setAbsent: (absent: Absent) => void; 
 }
 
 export const AbsentStore = create<AbsentState>()((set) => ({
+    employe_id: undefined,
+    setEmployeeId: (employe_id: number) => set({ employe_id }),
     absent: undefined,
     setAbsent: (absent: Absent) => set({ absent }),
 }));

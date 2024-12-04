@@ -12,9 +12,11 @@ import { Button } from "@/components/ui/button"
 import { EmployeeStore } from "@/app/store/employee";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { AbsentStore } from "@/app/store/absent";
   
 
 export default function EmployeeTable({ data }: { data: Employee[] }) {
+    const { setEmployeeId } = AbsentStore();
     const { setEmployee } = EmployeeStore();
     const router = useRouter();
 
@@ -74,6 +76,10 @@ export default function EmployeeTable({ data }: { data: Employee[] }) {
                             <Button className="bg-white border text-black rounded-md px-4 py-2 font-bold hover:text-white" onClick={() => {
                                 handleDelete(item.id)
                             }}>Delete</Button>
+                            <Button className="bg-white border text-black rounded-md px-4 py-2 font-bold hover:text-white" onClick={() => {
+                                setEmployeeId(item.id);
+                                router.push(`/list`)
+                            }}>See Absent</Button>
                         </TableCell>
                     </TableRow>
                 ))

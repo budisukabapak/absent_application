@@ -7,20 +7,20 @@ import {
     TableHeader,
     TableRow,
   } from "@/components/ui/table"
-import { Employee } from "./type"
+import { Absent } from "./type"
 import { Button } from "@/components/ui/button"
-import { EmployeeStore } from "@/app/store/employee";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { AbsentStore } from "@/app/store/absent";
   
 
-export default function EmployeeTable({ data }: { data: Employee[] }) {
-    const { setEmployee } = EmployeeStore();
+export default function EmployeeTable({ data }: { data: Absent[] }) {
+    const { setAbsent } = AbsentStore();
     const router = useRouter();
 
     const handleDelete = async (id: number) => {
         try {
-            const response = await fetch(`http://localhost:3000/employee/delete/${id}`, {
+            const response = await fetch(`http://localhost:3000/list/delete/${id}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -42,16 +42,13 @@ export default function EmployeeTable({ data }: { data: Employee[] }) {
 
     return (
         <Table className="w-full bg-white rounded-md shadow-md">
-        <TableCaption>A list of Employee.</TableCaption>
+        <TableCaption>A list of Employee's Absent.</TableCaption>
         <TableHeader>
             <TableRow>
-            <TableHead>Id</TableHead>
-            <TableHead>First Name</TableHead>
-            <TableHead>Last Name</TableHead>
-            <TableHead>Email</TableHead>
-            <TableHead>Gender</TableHead>
-            <TableHead>Phone Number</TableHead>
-            <TableHead>Address</TableHead>
+            <TableHead>Employee ID</TableHead>
+            <TableHead>Reason</TableHead>
+            <TableHead>Start Date</TableHead>
+            <TableHead>End Date</TableHead>
             <TableHead className="text-center">Action</TableHead>
             </TableRow>
         </TableHeader>
@@ -59,17 +56,14 @@ export default function EmployeeTable({ data }: { data: Employee[] }) {
             {
                 data && data.map((item, index) => (
                     <TableRow key={index}>
-                        <TableCell className="font-medium">{item.id}</TableCell>
-                        <TableCell>{item.first_name}</TableCell>
-                        <TableCell>{item.last_name}</TableCell>
-                        <TableCell>{item.email}</TableCell>
-                        <TableCell>{item.gender}</TableCell>
-                        <TableCell>{item.phone_number}</TableCell>
-                        <TableCell>{item.address}</TableCell>
+                        <TableCell className="font-medium">{item.employee_id}</TableCell>
+                        <TableCell>{item.reason}</TableCell>
+                        <TableCell>{item.date_start.toLocaleDateString()}</TableCell>
+                        <TableCell>{item.date_end.toLocaleDateString()}</TableCell>
                         <TableCell className="flex gap-2 items-center justify-center">
                             <Button className="bg-white border text-black rounded-md px-4 py-2 font-bold hover:text-white" onClick={() => {
-                                setEmployee(item);
-                                router.push(`/employee/update/${item.id}`)
+                                setAbsent(item);
+                                router.push(`/list/update/${item.employee_id}`)
                             }}>Edit</Button>
                             <Button className="bg-white border text-black rounded-md px-4 py-2 font-bold hover:text-white" onClick={() => {
                                 handleDelete(item.id)
